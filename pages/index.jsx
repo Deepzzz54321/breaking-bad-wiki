@@ -10,7 +10,6 @@ export default function Home({ data }) {
     <Layout>
       <SearchBar />
       <CharacterList />
-      <PaginationBar />
     </Layout>
   );
 }
