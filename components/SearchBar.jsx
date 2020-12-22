@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button, Col, Collapse, Form, Row } from "react-bootstrap";
 import useSWR from "swr";
 import { API_URL } from "../constants";
-import FilterOptions from "./FilterOptions";
 import Icon from "./Icon";
 
 async function fetchData(url) {
@@ -42,40 +41,32 @@ export default function SearchBar({ setCharacters, setError }) {
   };
 
   return (
-    <>
-      <Row className="align-items-center my-3">
-        <Form className="w-100" inline onSubmit={submitHandler}>
-          <Col xs="7" md="9" lg="10">
+    <Row className="justify-content-between align-items-center my-3">
+      <Col md="6">
+        <Form inline>
+          <InputGroup>
             <Form.Control
               type="text"
               name="character_name"
               placeholder="Enter Character's Name..."
-              className="w-100"
             />
-          </Col>
-          <Col xs="5" md="3" lg="2">
-            <Button variant="secondary" type="submit">
-              <Icon name="search" />
-            </Button>
-            <Button
-              variant="primary"
-              type="button"
-              className="ml-2"
-              onClick={() => setCollapseOpen(!collapseOpen)}
-              aria-controls="filter-options"
-              aria-expanded={collapseOpen}
-            >
-              <Icon name="filter" />
-            </Button>
-          </Col>
+            <InputGroup.Append>
+              <Button variant="secondary">
+                <Icon name="search" />
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
         </Form>
-      </Row>
-
-      <Collapse in={collapseOpen}>
-        <div id="filter-options">
-          <FilterOptions />
-        </div>
-      </Collapse>
-    </>
+      </Col>
+      <Col md="6" className="mt-3 mt-md-0">
+        <Form inline className="justify-content-end">
+          <Form.Control as="select">
+            <option>All</option>
+            <option value="Breaking Bad">Breaking Bad</option>
+            <option value="Better Call Saul">Better Call Saul</option>
+          </Form.Control>
+        </Form>
+      </Col>
+    </Row>
   );
 }
