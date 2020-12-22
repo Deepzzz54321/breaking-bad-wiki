@@ -14,7 +14,7 @@ export default function SearchBar() {
             <Form.Control
               type="text"
               name="character_name"
-              placeholder="Ente Character's Name..."
+              placeholder="Enter Character's Name..."
               className="w-100"
             />
           </Col>

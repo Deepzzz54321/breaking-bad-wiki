@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { API_URL } from "../../constants";
-import { Container, Spinner } from "react-bootstrap";
+import { Container, Spinner, Table } from "react-bootstrap";
+import Layout from "../../components/Layout";
+import BioTable from "../../components/BioTable";
+import Quotes from "../../components/Quotes";
+import ErrorMessage from "../../components/ErrorMessage";
 
 async function fetchData(character_url, quote_url) {
   let response = await fetch(character_url);
@@ -20,29 +24,49 @@ export default function CharacterPage() {
     fetchData
   );
   if (data && data.character && data.quotes && !error) {
+    const { character, quotes } = data;
     return (
-      <Container fluid className="mt-3">
-        <div className="bg-dark p-3 rounded-lg">
-          <div className="row justify-content-around">
-            <div className="col-md">
-              <img
-                src={data.character.img}
-                alt={data.character.name}
-                style={{ maxHeight: "90vh", maxWidth: "100%" }}
-              />
+      <Layout>
+        <Container className="px-0">
+          <div className="bg-dark p-3 rounded-lg mt-3">
+            <div className="row justify-content-center">
+              <div className="col-md-6 col-lg text-center">
+                <img
+                  src={character.img}
+                  alt={character.name}
+                  style={{ maxHeight: "75vh", maxWidth: "100%" }}
+                />
+              </div>
+              <div className="col-md-6 col-lg mt-3 mt-md-0">
+                <h3 className="text-primary">{character.name}</h3>
+                {character.nickname && (
+                  <h5 className="text-secondary">AKA {character.nickname}</h5>
+                )}
+                <BioTable character={character} />
+              </div>
+              {quotes && quotes.length > 0 && (
+                <div className="col-md-12 col-lg mt-3 mt-md-0">
+                  <Quotes quotes={quotes} />
+                </div>
+              )}
             </div>
-            <div className="col-md"></div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </Layout>
     );
   } else if (error) {
-    return <h1 className="text-secondary">500 - Server Error</h1>;
+    return (
+      <Layout>
+        <ErrorMessage />
+      </Layout>
+    );
   } else {
     return (
-      <Container fluid className="text-center mt-5">
-        <Spinner animation="border" variant="secondary" />
-      </Container>
+      <Layout>
+        <div className="my-4 text-center">
+          <Spinner animation="border" variant="secondary" />
+        </div>
+      </Layout>
     );
   }
 }

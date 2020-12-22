@@ -1,0 +1,44 @@
+@media (min-width: 1200px) {
+  html {
+    scrollbar-face-color: #646464;
+    scrollbar-base-color: #646464;
+    scrollbar-3dlight-color: #646464;
+    scrollbar-highlight-color: #646464;
+    scrollbar-track-color: #000;
+    scrollbar-arrow-color: #000;
+    scrollbar-shadow-color: #646464;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+    margin: 0 2px;
+  }
+  ::-webkit-scrollbar-track-piece {
+    background-color: #15171a;
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 10px;
+    background-color: #666;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-corner {
+    background-color: #646464;
+  }
+}
+
+.character-card {
+  transition: all 0.3s;
+}
+
+.character-card:hover {
+  cursor: pointer;
+  transform: scale(1.04);
+  -webkit-box-shadow: 0px 0px 10px -2px rgb(83, 198, 159);
+  -moz-box-shadow: 0px 0px 10px -2px rgb(83, 198, 159);
+  box-shadow: 0px 0px 10px -2px rgb(83, 198, 159);
+}
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
+@import "./variables";
+@import "../node_modules/bootstrap/scss/bootstrap";

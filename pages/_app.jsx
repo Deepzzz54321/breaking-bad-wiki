@@ -1,4 +1,4 @@
-import "../style/custom.scss";
+import "../style/index.scss";
 import "../style/errors.scss";
 
 export default function MyApp({ Component, pageProps }) {

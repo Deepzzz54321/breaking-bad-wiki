@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import LifeStatus from "./LifeStatus";
 
 export default function CharacterCard({
   char_id,
@@ -15,7 +16,10 @@ export default function CharacterCard({
 
   return (
     <div className="col p-3">
-      <div className="bg-dark p-3 rounded-lg h-100" onClick={redirectHandler}>
+      <div
+        className="character-card bg-dark p-3 rounded-lg h-100"
+        onClick={redirectHandler}
+      >
         <div className="text-center">
           <img
             src={img}
@@ -28,7 +32,10 @@ export default function CharacterCard({
           <em>{occupation && occupation.join(", ")}</em>
         </p>
         <p className="mb-0">
-          Status: <em className="text-danger"> {status}</em>
+          Status:
+          <em className="text-danger">
+            <LifeStatus status={status} />
+          </em>
         </p>
         <p className="mb-0">
           Date of Birth: <em className="text-light"> {birthday}</em>
