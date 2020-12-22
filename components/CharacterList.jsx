@@ -29,9 +29,7 @@ export default function CharacterList() {
   const page = parseInt(router.query.page) || 1;
   const name = router.query.name;
   const category = router.query.category;
-  console.log({ page, name, category });
   const { data, error } = useSWR([page, name, category], fetchData);
-  console.log({ data });
 
   if (data) {
     return (
