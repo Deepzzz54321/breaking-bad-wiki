@@ -23,7 +23,7 @@ export default function CharacterList() {
   if (data) {
     return (
       <>
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-around mr-2">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-around mr-xl-2">
           {data.slice(0, 10).map((char) => (
             <CharacterCard key={char.char_id} {...char} />
           ))}
