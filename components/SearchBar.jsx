@@ -8,7 +8,7 @@ export default function SearchBar() {
 
   return (
     <>
-      <Row className=" align-items-center my-3">
+      <Row className="align-items-center my-3">
         <Form className="w-100" inline>
           <Col xs="7" md="9" lg="10">
             <Form.Control

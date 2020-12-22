@@ -1,13 +1,21 @@
+import { useRouter } from "next/router";
+
 export default function CharacterCard({
+  char_id,
   name,
   birthday,
   occupation,
   img,
   status,
 }) {
+  const router = useRouter();
+  const redirectHandler = () => {
+    router.push(`/characters/${char_id}`);
+  };
+
   return (
     <div className="col p-3">
-      <div className="bg-dark p-3 rounded-lg h-100">
+      <div className="bg-dark p-3 rounded-lg h-100" onClick={redirectHandler}>
         <div className="text-center">
           <img
             src={img}
