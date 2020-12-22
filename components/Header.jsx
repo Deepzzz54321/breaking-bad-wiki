@@ -5,7 +5,7 @@ export default function Header() {
     <div className="head">
       <Link href="/">
         <a className="text-decoration-none">
-          <h2 className="text-primary d-inline-block">World of Breaking Bad</h2>
+          <h2 className="text-primary">World of Breaking Bad</h2>
         </a>
       </Link>
       <div className="border-top border-light"></div>

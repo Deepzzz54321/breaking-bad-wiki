@@ -57,7 +57,10 @@ export default function CharacterPage() {
   } else if (error) {
     return (
       <Layout>
-        <ErrorMessage />
+        <ErrorMessage
+          code={500}
+          message="Oops! The requested resource cannot be found!"
+        />
       </Layout>
     );
   } else {
