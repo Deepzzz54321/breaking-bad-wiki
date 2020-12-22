@@ -8,7 +8,17 @@ import PaginationBar from "./PaginationBar";
 import ErrorMessage from "./ErrorMessage";
 import SearchBar from "./SearchBar";
 
-async function fetchData(url) {
+async function fetchData(page, name, category) {
+  let url;
+  if (name) {
+    url = `${API_URL}/characters?name=${name}`;
+  } else if (category) {
+    url = `${API_URL}/characters?category=${category}&limit=10&offset=${
+      (page - 1) * 10
+    }`;
+  } else {
+    url = `${API_URL}/characters?limit=10&offset=${(page - 1) * 10}`;
+  }
   const response = await fetch(url);
   const data = await response.json();
   return data;
@@ -17,28 +27,22 @@ async function fetchData(url) {
 export default function CharacterList() {
   const router = useRouter();
   const page = parseInt(router.query.page) || 1;
-  const { data, error: fetchError } = useSWR(
-    `${API_URL}/characters?limit=10&offset=${(page - 1) * 10}`,
-    fetchData
-  );
-  const [characters, setCharacters] = useState(data);
-  const [error, setError] = useState(null);
+  const name = router.query.name;
+  const category = router.query.category;
+  console.log({ page, name, category });
+  const { data, error } = useSWR([page, name, category], fetchData);
+  console.log({ data });
 
-  useEffect(() => {
-    setCharacters(data);
-    setError(fetchError);
-  }, [data, fetchError]);
-
-  if (characters) {
+  if (data) {
     return (
       <>
-        <SearchBar setCharacters={setCharacters} setError={setError} />
+        <SearchBar />
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-around mr-xl-2">
-          {characters.slice(0, 10).map((char) => (
+          {data.map((char) => (
             <CharacterCard key={char.char_id} {...char} />
           ))}
         </div>
-        {characters == data && <PaginationBar />}
+        {page && !name ? <PaginationBar category={category} /> : null}
       </>
     );
   } else {
@@ -51,7 +55,7 @@ export default function CharacterList() {
       );
     } else {
       return (
-        <div className="text-center">
+        <div className="text-center mt-4">
           <Spinner animation="border" variant="secondary" />
         </div>
       );
