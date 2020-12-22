@@ -1,89 +1,33 @@
-import Head from 'next/head'
-import { Container, Row, Card, Button } from 'react-bootstrap'
+import { Container } from "react-bootstrap";
+import CharacterCard from "../components/CharacterCard";
+import SearchBar from "../components/SearchBar";
 
-export default function Home() {
+const API_URL = "https://www.breakingbadapi.com/api/characters";
+
+export async function getServerSideProps() {
+  const response = await fetch(API_URL);
+  const data = await response.json();
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export default function Home({ data }) {
   return (
-    <Container className="md-container">
-      <Head>
-        <title>ReactJS with react-bootstrap</title>
-        <link rel="icon" href="/favicon-32x32.png" />
-      </Head>
-      <Container>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <p>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-        <Container>
-          <Row className="justify-content-md-between">
-            <Card className="sml-card">
-              <Card.Body>
-                <Card.Title>Documentation</Card.Title>
-                <Card.Text>
-                  Find in-depth information about Next.js features and API.
-                </Card.Text>
-                <Button variant="primary" href="https://nextjs.org/docs">
-                  More &rarr;
-                </Button>
-              </Card.Body>
-            </Card>
-            <Card className="sml-card">
-              <Card.Body>
-                <Card.Title>Learn</Card.Title>
-                <Card.Text>
-                  Learn about Next.js in an interactive course with quizzes!
-                </Card.Text>
-                <Button variant="primary" href="https://nextjs.org/learn">
-                  More &rarr;
-                </Button>
-              </Card.Body>
-            </Card>
-          </Row>
-          <Row className="justify-content-md-between">
-            <Card className="sml-card">
-              <Card.Body>
-                <Card.Title>Examples</Card.Title>
-                <Card.Text>
-                  Discover and deploy boilerplate example Next.js projects.
-                </Card.Text>
-                <Button
-                  variant="primary"
-                  href="https://github.com/vercel/next.js/tree/master/examples"
-                >
-                  More &rarr;
-                </Button>
-              </Card.Body>
-            </Card>
-            <Card className="sml-card">
-              <Card.Body>
-                <Card.Title>Deploy</Card.Title>
-                <Card.Text>
-                  Instantly deploy your Next.js site to a public URL with
-                  Vercel.
-                </Card.Text>
-                <Button
-                  variant="primary"
-                  href="https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=example&utm_campaign=next-example"
-                >
-                  More &rarr;
-                </Button>
-              </Card.Body>
-            </Card>
-          </Row>
-        </Container>
-      </Container>
-
-      <footer className="cntr-footer">
-        <a
-          href="https://vercel.com?filter=next.js&utm_source=github&utm_medium=example&utm_campaign=next-example"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="sml-logo" />
-        </a>
-      </footer>
+    <Container fluid>
+      <div className="head mt-3 mt-md-4">
+        <h2 className="text-primary">World of Breaking Bad</h2>
+        <div className="border-top border-light"></div>
+        <SearchBar />
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-around mx-3">
+          {data.map((char) => (
+            <CharacterCard {...char} />
+          ))}
+          <CharacterCard />
+        </div>
+      </div>
     </Container>
-  )
+  );
 }
