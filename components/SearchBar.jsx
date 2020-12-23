@@ -1,15 +1,7 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { Button, Col, Collapse, Form, InputGroup, Row } from "react-bootstrap";
-import useSWR from "swr";
-import { API_URL } from "../constants";
+import { useEffect, useRef } from "react";
+import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import Icon from "./Icon";
-
-async function fetchData(url) {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
-}
 
 export default function SearchBar({ name, category }) {
   const nameInput = useRef(null);

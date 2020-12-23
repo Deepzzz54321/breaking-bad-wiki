@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Spinner } from "react-bootstrap";
 import useSWR from "swr";
 import { API_URL } from "../constants";
-import { Spinner } from "react-bootstrap";
 import CharacterCard from "./CharacterCard";
-import PaginationBar from "./PaginationBar";
 import ErrorMessage from "./ErrorMessage";
+import PaginationBar from "./PaginationBar";
 import SearchBar from "./SearchBar";
 
 async function fetchData(page, name, category) {
