@@ -11,7 +11,7 @@ async function fetchData(url) {
   return data;
 }
 
-export default function SearchBar() {
+export default function SearchBar({ name, category }) {
   const nameInput = useRef(null);
   const categoryInput = useRef(null);
   const router = useRouter();
@@ -29,6 +29,14 @@ export default function SearchBar() {
       router.push(`?category=${category}`);
     }
   };
+
+  useEffect(() => {
+    nameInput.current.value = name ? name : "";
+    const children = [...categoryInput.current.children];
+    if (category) {
+      children.find((child) => child.value == category).selected = "true";
+    }
+  }, [name, category]);
 
   return (
     <Row className="justify-content-between align-items-center my-3">

@@ -34,12 +34,19 @@ export default function CharacterList() {
   if (data) {
     return (
       <>
-        <SearchBar />
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-around mr-xl-2">
-          {data.map((char) => (
-            <CharacterCard key={char.char_id} {...char} />
-          ))}
-        </div>
+        <SearchBar name={name} category={category} />
+        {data.length > 0 ? (
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-around mr-xl-2">
+            {data.map((char) => (
+              <CharacterCard key={char.char_id} {...char} />
+            ))}
+          </div>
+        ) : (
+          <ErrorMessage
+            code={404}
+            message="Oops! The requested resource cannot be found!"
+          />
+        )}
         {page && !name ? <PaginationBar category={category} /> : null}
       </>
     );
