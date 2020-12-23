@@ -1,12 +1,11 @@
 import React from "react";
 
 export default function LifeStatus({ status }) {
-  const alive = !(
+  const dead =
     status.toLowerCase().includes("dead") ||
-    status.toLowerCase().includes("deceased")
-  );
+    status.toLowerCase().includes("deceased");
   return (
-    <span className={`${alive ? "text-success" : "text-danger"} ml-1`}>
+    <span className={`${dead ? "text-danger" : "text-success"} ml-1`}>
       {status}
     </span>
   );
